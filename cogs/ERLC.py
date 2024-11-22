@@ -746,7 +746,7 @@ class ERLC(commands.Cog):
         sett = self.bot.settings.find_by_id(guild_id)
         if all_users and len(all_users) > 0:
             try:
-                message = sett['ERLC']['discord_checks']["message"]
+                message = sett.get('ERLC', {}).get('discord_checks', {}).get('message', "Please join the Discord server.")
                 command = f":pm {','.join(all_users)} {message}"
                 await self.bot.prc_api.run_command(guild_id, command)
                 embed.set_footer(
