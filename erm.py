@@ -676,11 +676,11 @@ async def statistics_check():
 
         tasks = [update_channel(guild, channel_id, stat_value, placeholders) for channel_id, stat_value in statistics.items()]
         await asyncio.gather(*tasks)
+        del tasks
+        del placeholders
 
     end_time = time.time()
     logging.warning(f"Event statistics_check took {end_time - initial_time} seconds")
-    del tasks
-    del placeholders
 
 pm_counter = {}
 @tasks.loop(minutes=2, reconnect=True)
