@@ -8076,6 +8076,9 @@ class ERLCIntegrationConfiguration(AssociationConfigurationView):
             ).add_field(
                 name="Auto Kick/Ban Logging",
                 value="This is where you can configure the auto kick/ban feature for ER:LC.",
+            ).add_field(
+                name="Discord Check Message",
+                value="This message is sent to in-game users when a Discord Check is performed with bot if user is not found in server."
             ),
             view=view,
             ephemeral=True
