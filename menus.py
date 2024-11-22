@@ -900,11 +900,11 @@ class LOAMenu(discord.ui.View):
         # await interaction.response.defer()
         await interaction.response.defer(ephemeral=True, thinking=True)
         sett = await self.bot.settings.find(interaction.guild.id)
-        if not any(
-                role in [r.id for r in interaction.user.roles] for role in sett.get('staff_management', {}).get("admin_role")
-        ):
-            await generalised_interaction_check_failure(interaction.followup)
-            return
+        has_admin_role = any(
+            role in [r.id for r in interaction.user.roles] for role in sett.get('staff_management', {}).get("admin_role", [])
+        )
+        if has_admin_role:
+            pass
         else:
             if not any(
                     role in [r.id for r in interaction.user.roles] for role in self.roles
