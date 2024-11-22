@@ -899,18 +899,24 @@ class LOAMenu(discord.ui.View):
     async def accept(self, interaction: discord.Interaction, button: discord.ui.Button):
         # await interaction.response.defer()
         await interaction.response.defer(ephemeral=True, thinking=True)
-
+        sett = await self.bot.settings.find(interaction.guild.id)
         if not any(
-                role in [r.id for r in interaction.user.roles] for role in self.roles
+                role in [r.id for r in interaction.user.roles] for role in sett.get('staff_management', {}).get("admin_role")
         ):
-            # await interaction.response.defer(ephemeral=True, thinking=True)
-            if (
-                    not interaction.user.guild_permissions.manage_guild
-                    and not interaction.user.guild_permissions.administrator
-                    and not interaction.user == interaction.guild.owner
+            await generalised_interaction_check_failure(interaction.followup)
+            return
+        else:
+            if not any(
+                    role in [r.id for r in interaction.user.roles] for role in self.roles
             ):
-                await generalised_interaction_check_failure(interaction.followup)
-                return
+                # await interaction.response.defer(ephemeral=True, thinking=True)
+                if (
+                        not interaction.user.guild_permissions.manage_guild
+                        and not interaction.user.guild_permissions.administrator
+                        and not interaction.user == interaction.guild.owner
+                ):
+                    await generalised_interaction_check_failure(interaction.followup)
+                    return
         for item in self.children:
             item.disabled = True
         await interaction.message.edit(view=self)

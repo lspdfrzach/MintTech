@@ -197,7 +197,7 @@ class OnMessage(commands.Cog):
                                                         ),
                                                         view=view
                                                     )
-        if auto_logging_webhook_channel is not None and message.channel.id == auto_logging_webhook_channel:
+        if remote_commands and remote_command_channel is not None and message.channel.id in [remote_command_channel]:
             for embed in message.embeds:
                 if not embed.description or not embed.title:
                     continue
