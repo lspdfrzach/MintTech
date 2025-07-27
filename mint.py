@@ -431,17 +431,17 @@ bot.warning_json_to_mongo = warning_json_to_mongo
 
 # include environment variables
 if environment == "PRODUCTION":
-    bot_token = config("MTM5ODE0MTcyMjM2NTY1NzA4OA.Gxq2tv.Rq_ODEIR3P1e6MZ5IV1QaXdwov4s87CRRd7AsU")
+    bot_token = config("")
     logging.info("Using production token...")
 elif environment == "DEVELOPMENT":
     try:
-        bot_token = config("MTM5ODE0MTcyMjM2NTY1NzA4OA.Gxq2tv.Rq_ODEIR3P1e6MZ5IV1QaXdwov4s87CRRd7AsU")
+        bot_token = config("")
     except decouple.UndefinedValueError:
         bot_token = ""
     logging.info("Using development token...")
 elif environment == "ALPHA":
     try:
-        bot_token = config('MTM5ODE0MTcyMjM2NTY1NzA4OA.Gxq2tv.Rq_ODEIR3P1e6MZ5IV1QaXdwov4s87CRRd7AsU')
+        bot_token = config('')
     except decouple.UndefinedValueError:
         bot_token = ""
     logging.info('Using Mint Alpha token...')
