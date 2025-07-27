@@ -6,10 +6,10 @@ from dataclasses import MISSING
 from pkgutil import iter_modules
 import re
 try:
-    import Levenshtein
-    from fuzzywuzzy import fuzz, process
+    from rapidfuzz import fuzz, process
 except ImportError:
-    from fuzzywuzzy import fuzz, process
+    print("Required module 'rapidfuzz' not found. Please run: pip install rapidfuzz")
+    exit()
 import aiohttp
 import decouple
 import discord.mentions
@@ -230,7 +230,7 @@ bot = Bot(
         replied_user=False, everyone=False, roles=False
     ),
 )
-bot.debug_servers = [987798554972143728]
+bot.debug_servers = [1299746352032649291]
 bot.is_synced = False
 bot.shift_management_disabled = False
 bot.punishments_disabled = False
@@ -412,20 +412,16 @@ async def warning_json_to_mongo(jsonName: str, guildId: int):
             await bot.warnings.update(structure)
 
 
-bot.erm_team = {
-    "i_imikey": "Bot Developer",
-    "mbrinkley": "First Community Manager - Removed",
-    "theoneandonly_5567": "Executive Manager",
-    "royalcrests": "Website Developer & Asset Designer",
-    "1friendlydoge": "Data Scientist - a friendly doge",
+bot.core_team = {
+    "sleeptoken_ii": "Bot Developer",
 }
 
 
 async def staff_field(bot: Bot, embed, query):
     flag = await bot.flags.find_by_id(query)
     embed.add_field(
-        name="<:ERMAdmin:1111100635736187011> Flags",
-        value=f"<:Space:1100877460289101954><:ERMArrow:1111091707841359912>{flag['rank']}",
+        name="<:leaf:1160541147320553562> Flags",
+        value=f"<:Space:1100877460289101954><:Arrow:1307826128177860758>{flag['rank']}",
         inline=False,
     )
     return embed
@@ -435,20 +431,20 @@ bot.warning_json_to_mongo = warning_json_to_mongo
 
 # include environment variables
 if environment == "PRODUCTION":
-    bot_token = config("PRODUCTION_BOT_TOKEN")
+    bot_token = config("MTM5ODE0MTcyMjM2NTY1NzA4OA.Gxq2tv.Rq_ODEIR3P1e6MZ5IV1QaXdwov4s87CRRd7AsU")
     logging.info("Using production token...")
 elif environment == "DEVELOPMENT":
     try:
-        bot_token = config("DEVELOPMENT_BOT_TOKEN")
+        bot_token = config("MTM5ODE0MTcyMjM2NTY1NzA4OA.Gxq2tv.Rq_ODEIR3P1e6MZ5IV1QaXdwov4s87CRRd7AsU")
     except decouple.UndefinedValueError:
         bot_token = ""
     logging.info("Using development token...")
 elif environment == "ALPHA":
     try:
-        bot_token = config('ALPHA_BOT_TOKEN')
+        bot_token = config('MTM5ODE0MTcyMjM2NTY1NzA4OA.Gxq2tv.Rq_ODEIR3P1e6MZ5IV1QaXdwov4s87CRRd7AsU')
     except decouple.UndefinedValueError:
         bot_token = ""
-    logging.info('Using ERM V4 Alpha token...')
+    logging.info('Using Mint Alpha token...')
 else:
     raise Exception("Invalid environment")
 try:
@@ -464,7 +460,7 @@ except decouple.UndefinedValueError:
 async def change_status():
     await bot.wait_until_ready()
     logging.info("Changing status")
-    status = "⚡ /about | ermbot.xyz"
+    status = "⚡ Powered By MINT"
     await bot.change_presence(
         activity=discord.CustomActivity(name=status)
     )
