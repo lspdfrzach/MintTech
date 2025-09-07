@@ -1,3 +1,3 @@
-from erm import run
+from mint import run
 
 run()
